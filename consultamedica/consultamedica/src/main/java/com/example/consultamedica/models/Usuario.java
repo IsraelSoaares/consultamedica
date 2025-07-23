@@ -3,9 +3,12 @@ package com.example.consultamedica.models;
 import com.example.consultamedica.models.TipoUsuario;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -19,7 +22,6 @@ public class Usuario {
     private String email;
     private int senha;
     private TipoUsuario tipo;
-
 
 
 }

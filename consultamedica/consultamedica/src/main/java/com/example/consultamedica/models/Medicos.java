@@ -18,7 +18,6 @@ public class Medicos {
     @OneToOne
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
-    @Column(length = 7)
     private int crm;
     private String especialidade;
     private LocalDate horario_comeco;
