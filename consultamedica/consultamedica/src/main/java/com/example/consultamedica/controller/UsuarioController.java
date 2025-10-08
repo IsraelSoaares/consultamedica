@@ -8,6 +8,7 @@ import com.example.consultamedica.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com .example.consultamedica.models.TipoUsuario;
 import com.example.consultamedica.models.Pacientes;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.util.Date;
 
 
-@RestController
+@Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
@@ -87,8 +88,11 @@ public class UsuarioController {
                 atendenteRepository.save(atendente);
             }
         }
-        return "redirect:/login"; // Redireciona após cadastro
+        return "redirect:/usuarios/sucesso";
 
 
     }
+
+
+
 }

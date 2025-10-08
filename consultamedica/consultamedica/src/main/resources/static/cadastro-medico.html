@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Médico</title>
+</head>
+<body>
+<h2>Cadastro de Médico</h2>
+<form action="/usuarios/cadastrar" method="post">
+    <!-- Dados do Usuário (pré-preenchidos com JavaScript) -->
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" required><br><br>
+
+    <input type="hidden" name="tipo" value="MEDICO">
+
+    <!-- Dados do Médico -->
+    <label for="crm">CRM:</label>
+    <input type="number" id="crm" name="crm" required><br><br>
+
+    <label for="especialidade">Especialidade:</label>
+    <input type="text" id="especialidade" name="especialidade" required><br><br>
+
+    <label for="horario_comeco">Horário de Início:</label>
+    <input type="date" id="horario_comeco" name="horario_comeco" required><br><br>
+
+    <label for="horario_fim">Horário de Término:</label>
+    <input type="date" id="horario_fim" name="horario_fim" required><br><br>
+
+    <button type="submit">Cadastrar Médico</button>
+</form>
+
+<script>
+    // Pega dados do localStorage
+    document.getElementById('nome').value = localStorage.getItem('nome') || '';
+    document.getElementById('email').value = localStorage.getItem('email') || '';
+    document.getElementById('senha').value = localStorage.getItem('senha') || '';
+</script>
+</body>
+</html>

@@ -17,10 +17,14 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String nome;
-    @Column(unique = true)
+
     private String email;
+
     private int senha;
+
+    @Enumerated(EnumType.STRING)
     private TipoUsuario tipo;
 
 

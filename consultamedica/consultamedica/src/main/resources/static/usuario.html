@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Usuário</title>
+</head>
+<body>
+<h2>Cadastro de Usuário</h2>
+<form id="form-usuario">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" required><br><br>
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" required><br><br>
+
+    <label for="tipo">Tipo de Usuário:</label>
+    <select id="tipo" required>
+        <option value="">Selecione</option>
+        <option value="PACIENTE">Paciente</option>
+        <option value="MEDICO">Médico</option>
+    </select><br><br>
+
+    <button type="submit">Avançar</button>
+</form>
+
+<script>
+    document.getElementById('form-usuario').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const tipo = document.getElementById('tipo').value;
+
+      // Armazena temporariamente no navegador
+      localStorage.setItem('nome', nome);
+      localStorage.setItem('email', email);
+      localStorage.setItem('senha', senha);
+
+      if (tipo === 'MEDICO') {
+        window.location.href = 'cadastro-medico.html';
+      } else {
+        // Aqui você poderia enviar direto pro backend se fosse paciente
+        alert("Cadastro de paciente ainda não implementado.");
+      }
+    });
+</script>
+</body>
+</html>
