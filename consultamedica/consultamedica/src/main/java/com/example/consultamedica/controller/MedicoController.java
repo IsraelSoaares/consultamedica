@@ -1,29 +1,33 @@
 package com.example.consultamedica.controller;
 
+import com.example.consultamedica.models.Medicos;
 import com.example.consultamedica.repository.MedicoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
 
-    @Autowired
-    private MedicoRepository medicoRepository;
+    private final MedicoRepository medicoRepository;
+
+    public MedicoController(MedicoRepository medicoRepository) {
+        this.medicoRepository = medicoRepository;
+    }
+
+    @PostMapping
+    public Medicos criarMedico(@RequestBody Medicos medico) {
+        return medicoRepository.save(medico);
+    }
 
     @GetMapping
-    public List<Map<String, Object>> listarMedicos() {
-        return medicoRepository.findAll().stream().map(m -> {
-            Map<String, Object> medicoMap = new HashMap<>();
-            medicoMap.put("id", m.getId());
-            medicoMap.put("nome", m.getUsuario().getNome()); // nome do médico via usuário
-            return medicoMap;
-        }).toList();
+    public List<Medicos> listarMedicos() {
+        return medicoRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Medicos buscarPorId(@PathVariable Long id) {
+        return medicoRepository.findById(id).orElse(null);
     }
 }

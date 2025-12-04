@@ -2,44 +2,313 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Médico</title>
+    <style>
+        :root {
+            --primary-color: #2c7fb8;
+            --secondary-color: #7fcdbb;
+            --accent-color: #edf8b1;
+            --dark-color: #253237;
+            --light-color: #f8f9fa;
+            --error-color: #e74c3c;
+            --success-color: #2ecc71;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .card-header p {
+            opacity: 0.9;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(44, 127, 184, 0.2);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 28px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #23689b;
+            transform: translateY(-2px);
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .form-section-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .password-strength {
+            height: 5px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0%;
+            transition: var(--transition);
+        }
+
+        .weak { background-color: var(--error-color); width: 33%; }
+        .medium { background-color: orange; width: 66%; }
+        .strong { background-color: var(--success-color); width: 100%; }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-body {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-<h2>Cadastro de Médico</h2>
-<form action="/usuarios/cadastrar" method="post">
-    <!-- Dados do Usuário (pré-preenchidos com JavaScript) -->
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required><br><br>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div class="logo">
+                <div class="logo-icon">🏥</div>
+                <h2>Cadastro de Médico</h2>
+                <p>Complete suas informações para se cadastrar</p>
+            </div>
+        </div>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
+        <div class="card-body">
+            <form action="/usuarios/cadastrar" method="post">
+                <!-- Dados do Usuário -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Dados Pessoais</h3>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+                        </div>
 
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" required><br><br>
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        </div>
 
-    <input type="hidden" name="tipo" value="MEDICO">
+                        <div class="form-group">
+                            <label for="senha">Senha</label>
+                            <input type="password" id="senha" name="senha" placeholder="Crie uma senha segura" required>
+                            <div class="password-strength">
+                                <div class="password-strength-bar" id="password-strength-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Dados do Médico -->
-    <label for="crm">CRM:</label>
-    <input type="number" id="crm" name="crm" required><br><br>
+                <!-- Dados do Médico -->
+                <div class="form-section">
+                    <h3 class="form-section-title">Dados Profissionais</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="crm">CRM</label>
+                            <input type="number" id="crm" name="crm" placeholder="Número do CRM" required>
+                        </div>
 
-    <label for="especialidade">Especialidade:</label>
-    <input type="text" id="especialidade" name="especialidade" required><br><br>
+                        <div class="form-group">
+                            <label for="especialidade">Especialidade</label>
+                            <select id="especialidade" name="especialidade" required>
+                                <option value="">Selecione uma especialidade</option>
+                                <option value="Cardiologia">Cardiologia</option>
+                                <option value="Dermatologia">Dermatologia</option>
+                                <option value="Pediatria">Pediatria</option>
+                                <option value="Ortopedia">Ortopedia</option>
+                                <option value="Neurologia">Neurologia</option>
+                                <option value="Outra">Outra</option>
+                            </select>
+                        </div>
 
-    <label for="horario_comeco">Horário de Início:</label>
-    <input type="date" id="horario_comeco" name="horario_comeco" required><br><br>
+                        <div class="form-group">
+                            <label for="horario_comeco">Horário de Início</label>
+                            <input type="time" id="horario_comeco" name="horario_comeco" required>
+                        </div>
 
-    <label for="horario_fim">Horário de Término:</label>
-    <input type="date" id="horario_fim" name="horario_fim" required><br><br>
+                        <div class="form-group">
+                            <label for="horario_fim">Horário de Término</label>
+                            <input type="time" id="horario_fim" name="horario_fim" required>
+                        </div>
+                    </div>
+                </div>
 
-    <button type="submit">Cadastrar Médico</button>
-</form>
+                <input type="hidden" name="tipo" value="MEDICO">
+
+                <button type="submit" class="btn">Cadastrar Médico</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     // Pega dados do localStorage
     document.getElementById('nome').value = localStorage.getItem('nome') || '';
     document.getElementById('email').value = localStorage.getItem('email') || '';
     document.getElementById('senha').value = localStorage.getItem('senha') || '';
+
+    // Verificação de força da senha
+    const passwordInput = document.getElementById('senha');
+    const strengthBar = document.getElementById('password-strength-bar');
+
+    passwordInput.addEventListener('input', function() {
+        const password = passwordInput.value;
+        let strength = 0;
+
+        // Verifica o comprimento
+        if (password.length >= 8) strength++;
+
+        // Verifica se tem números
+        if (password.match(/([0-9])/)) strength++;
+
+        // Verifica se tem caracteres especiais
+        if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) strength++;
+
+        // Atualiza a barra de força
+        strengthBar.className = 'password-strength-bar';
+        if (password.length > 0) {
+            if (strength === 1) {
+                strengthBar.classList.add('weak');
+            } else if (strength === 2) {
+                strengthBar.classList.add('medium');
+            } else if (strength >= 3) {
+                strengthBar.classList.add('strong');
+            }
+        }
+    });
+
+    // Validação de horário
+    const startTimeInput = document.getElementById('horario_comeco');
+    const endTimeInput = document.getElementById('horario_fim');
+
+    endTimeInput.addEventListener('change', function() {
+        if (startTimeInput.value && endTimeInput.value) {
+            if (startTimeInput.value >= endTimeInput.value) {
+                alert('O horário de término deve ser após o horário de início');
+                endTimeInput.value = '';
+            }
+        }
+    });
 </script>
 </body>
 </html>
